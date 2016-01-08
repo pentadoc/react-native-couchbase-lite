@@ -1,12 +1,14 @@
 var { NativeModules } = require('react-native');
 var ReactCBLite = NativeModules.ReactCBLite;
+import config from ('./config');
 
 var base64 = require('base-64');
 
-var manager = function (databaseUrl, databaseName) {
+var manager = function () {
   this.authHeader = "Basic " + base64.encode(databaseUrl.split("//")[1].split('@')[0]);
-  this.databaseUrl = databaseUrl;
-  this.databaseName = databaseName;
+  this.db = config.db;
+  this.db.localUrl = databaseUrl;
+  this.db.localName = databaseName;
 };
 
 manager.prototype = {
@@ -17,7 +19,7 @@ manager.prototype = {
    * @returns {*|promise}
    */
   createDatabase: function() {
-    return this.makeRequest("PUT", this.databaseUrl + this.databaseName, null, null);
+    return this.makeRequest("PUT", this.db.localUrl + this.db.localName, null, null);
   },
 
   /*
@@ -31,7 +33,7 @@ manager.prototype = {
     var data = {
       views: designDocumentViews
     };
-    return this.makeRequest("PUT", this.databaseUrl + this.databaseName + "/" + designDocumentName, {}, data);
+    return this.makeRequest("PUT", this.db.localUrl + this.db.localName + "/" + designDocumentName, {}, data);
   },
 
   /*
@@ -41,7 +43,7 @@ manager.prototype = {
    * @return   promise
    */
   getDesignDocument: function(designDocumentName) {
-    return this.makeRequest("GET", this.databaseUrl + this.databaseName + "/" + designDocumentName);
+    return this.makeRequest("GET", this.db.localUrl + this.db.localName + "/" + designDocumentName);
   },
 
   /*
@@ -53,7 +55,7 @@ manager.prototype = {
    * @return   promise
    */
   queryView: function(designDocumentName, viewName, options) {
-    return this.makeRequest("GET", this.databaseUrl + this.databaseName + "/" + designDocumentName + "/_view/" + viewName, options);
+    return this.makeRequest("GET", this.db.localUrl + this.db.localName + "/" + designDocumentName + "/_view/" + viewName, options);
   },
 
   /**
@@ -63,7 +65,7 @@ manager.prototype = {
    * @returns {*|promise}
    */
   createDocument: function (jsonDocument) {
-    return this.makeRequest("POST", this.databaseUrl + this.databaseName, {}, jsonDocument);
+    return this.makeRequest("POST", this.db.localUrl + this.db.localName, {}, jsonDocument);
   },
 
   /**
@@ -74,7 +76,7 @@ manager.prototype = {
    * @return promise
    */
   deleteDocument: function(documentId, documentRevision) {
-    return this.makeRequest("DELETE", this.databaseUrl + this.databaseName + "/" + documentId + "?rev=" + documentRevision);
+    return this.makeRequest("DELETE", this.db.localUrl + this.db.localName + "/" + documentId + "?rev=" + documentRevision);
   },
 
   /*
@@ -84,7 +86,7 @@ manager.prototype = {
    * @return   promise
    */
   getDocument: function(documentId) {
-    return this.makeRequest("GET", this.databaseUrl + this.databaseName + "/" + documentId);
+    return this.makeRequest("GET", this.db.localUrl + this.db.localName + "/" + documentId);
   },
 
   /**
@@ -93,7 +95,7 @@ manager.prototype = {
    * @returns {*|promise}
    */
   getAllDocuments: function() {
-    return this.makeRequest("GET", this.databaseUrl + this.databaseName + "/_all_docs?include_docs=true");
+    return this.makeRequest("GET", this.db.localUrl + this.db.localName + "/_all_docs?include_docs=true");
   },
 
   /**
@@ -104,13 +106,22 @@ manager.prototype = {
    * @param continuous
    * @returns {*|promise}
    */
-  replicate: function(source, target, continuous) {
-    return this.makeRequest("POST", this.databaseUrl + "_replicate", {}, {
+  replicateOLD: function(source, target, continuous) {
+    return this.makeRequest("POST", this.db.localUrl + "_replicate", {}, {
       source: source,
       target: target,
       continuous: continuous
     });
   },
+
+  replicate: function(){
+    return this.makeRequest("POST", this.db.localUrl + "_replicate", {}, {
+      source: this.db.remoteName, 
+      target: this.db.localName,
+      continuous: true
+    })
+  },
+
 
   /**
    * Make a RESTful request to an endpoint while providing parameters or data or both

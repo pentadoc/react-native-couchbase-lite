@@ -12,12 +12,15 @@ var {
   View,
   Image,
   ListView,
+  Navigator,
   } = React;
+//var {Router, Route, Schema, Animations, TabBar} = require('react-native-router-flux');
 
 var ReactCBLite = require('react-native').NativeModules.ReactCBLite;
 ReactCBLite.init(5984, 'admin', 'password');
 
 var { manager } = require('react-native-couchbase-lite');
+var lastChange = {};
 
 var ReactNativeCouchbaseLiteExample = React.createClass({
   render: function () {
@@ -35,26 +38,51 @@ var Home = React.createClass({
       })
     }
   },
-  componentDidMount() {
-    var database = new manager('http://admin:password@localhost:5984/', 'myapp');
 
-    database.createDatabase()
-      .then((res) => {
-        database.getAllDocuments()
+  componentDidMount() { 
+    var self = this;
+    var database = new manager();
+    database.createLocalDatabase()
+    .then((res)=>{
+       database.getAllDocuments()
           .then((res) => {
             this.setState({
               dataSource: this.state.dataSource.cloneWithRows(res.rows)
             });
-          });
+        });
 
-        database.replicate('http://localhost:4984/moviesapp', 'myapp')
-          .then((res) => {
-            console.log(res);
-          });
+      //database.replicate('http://dbreader:password@couchtest.coveycs.com:5984/', 'testdb', true)
+      database.bidirectionalReplicate(true)
+        .then((res) => {
+          console.log(res);
       });
+/*
+      database.replicate(config.db.localUrl, config.db.remoteName, true)
+        .then((res) => {
+          console.log(res);
+      });*/
+
+      database.getChanges(true)
+          .then((res)=>{
+          if(false){
+            lastChange = res;
+             database.getAllDocuments()
+              .then((res) => {
+                this.setState({
+                  dataSource: this.state.dataSource.cloneWithRows(res.rows)
+                });
+            });
+          }
+        });
+            
+    })
   },
+
+
+
   render() {
     return (
+
       <View>
         <ListView
           dataSource={this.state.dataSource}
@@ -68,10 +96,10 @@ var Home = React.createClass({
     return (
       <View style={styles.container}>
         <Image
-          source={{uri: movie.posters.thumbnail}}
+          source={{uri: movie.image}}
           style={styles.thumbnail}/>
         <View style={styles.rightContainer}>
-          <Text style={styles.title}>{movie.title}</Text>
+          <Text style={styles.title}>{movie.name}</Text>
           <Text style={styles.year}>{movie.year}</Text>
         </View>
       </View>
@@ -99,7 +127,7 @@ var styles = StyleSheet.create({
     textAlign: 'center',
   },
   thumbnail: {
-    width: 53,
+    width: 81,
     height: 81,
   },
   listView: {

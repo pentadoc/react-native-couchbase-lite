@@ -28,9 +28,9 @@
 		BE8EFDB01C0E92CA00627BBA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8EFDAF1C0E92CA00627BBA /* libsqlite3.tbd */; };
 		BE8EFDB11C0E92D200627BBA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8EFD911C0E7FE600627BBA /* CFNetwork.framework */; };
 		BE8EFDB41C0E969500627BBA /* libReactCBLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8EFDAB1C0E91A100627BBA /* libReactCBLite.a */; };
-		BE8EFDB71C0E96EE00627BBA /* libCBLJSViewCompiler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8EFDB61C0E96EE00627BBA /* libCBLJSViewCompiler.a */; settings = {ASSET_TAGS = (); }; };
-		BE8EFDBA1C0E96F300627BBA /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8EFDB81C0E96F300627BBA /* CouchbaseLite.framework */; settings = {ASSET_TAGS = (); }; };
-		BE8EFDBB1C0E96F300627BBA /* CouchbaseLiteListener.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8EFDB91C0E96F300627BBA /* CouchbaseLiteListener.framework */; settings = {ASSET_TAGS = (); }; };
+		BE8EFDB71C0E96EE00627BBA /* libCBLJSViewCompiler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE8EFDB61C0E96EE00627BBA /* libCBLJSViewCompiler.a */; };
+		CAAB51B61C3CB83400599BD0 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAAB51B41C3CB83400599BD0 /* CouchbaseLite.framework */; };
+		CAAB51B71C3CB83400599BD0 /* CouchbaseLiteListener.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAAB51B51C3CB83400599BD0 /* CouchbaseLiteListener.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,8 +151,8 @@
 		BE8EFDAF1C0E92CA00627BBA /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		BE8EFDB51C0E96EE00627BBA /* CBLRegisterJSViewCompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBLRegisterJSViewCompiler.h; sourceTree = "<group>"; };
 		BE8EFDB61C0E96EE00627BBA /* libCBLJSViewCompiler.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCBLJSViewCompiler.a; sourceTree = "<group>"; };
-		BE8EFDB81C0E96F300627BBA /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CouchbaseLite.framework; sourceTree = "<group>"; };
-		BE8EFDB91C0E96F300627BBA /* CouchbaseLiteListener.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CouchbaseLiteListener.framework; sourceTree = "<group>"; };
+		CAAB51B41C3CB83400599BD0 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CouchbaseLite.framework; sourceTree = "<group>"; };
+		CAAB51B51C3CB83400599BD0 /* CouchbaseLiteListener.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CouchbaseLiteListener.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,7 +171,7 @@
 				BE8EFDB11C0E92D200627BBA /* CFNetwork.framework in Frameworks */,
 				BE8EFDB01C0E92CA00627BBA /* libsqlite3.tbd in Frameworks */,
 				BE8EFDAE1C0E92C300627BBA /* Security.framework in Frameworks */,
-				BE8EFDBA1C0E96F300627BBA /* CouchbaseLite.framework in Frameworks */,
+				CAAB51B61C3CB83400599BD0 /* CouchbaseLite.framework in Frameworks */,
 				BE8EFDAD1C0E92BE00627BBA /* SystemConfiguration.framework in Frameworks */,
 				BE8EFDAC1C0E92B800627BBA /* libz.tbd in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -180,7 +180,7 @@
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				BE8EFDB71C0E96EE00627BBA /* libCBLJSViewCompiler.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
-				BE8EFDBB1C0E96F300627BBA /* CouchbaseLiteListener.framework in Frameworks */,
+				CAAB51B71C3CB83400599BD0 /* CouchbaseLiteListener.framework in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
@@ -347,9 +347,9 @@
 			isa = PBXGroup;
 			children = (
 				BE8EFDB51C0E96EE00627BBA /* CBLRegisterJSViewCompiler.h */,
-				BE8EFDB81C0E96F300627BBA /* CouchbaseLite.framework */,
-				BE8EFDB91C0E96F300627BBA /* CouchbaseLiteListener.framework */,
 				BE8EFDB61C0E96EE00627BBA /* libCBLJSViewCompiler.a */,
+				CAAB51B41C3CB83400599BD0 /* CouchbaseLite.framework */,
+				CAAB51B51C3CB83400599BD0 /* CouchbaseLiteListener.framework */,
 				BE8EFDAF1C0E92CA00627BBA /* libsqlite3.tbd */,
 				BE8EFD991C0E822400627BBA /* libsqlite3.0.tbd */,
 				BE8EFD8D1C0E7FDB00627BBA /* libz.tbd */,

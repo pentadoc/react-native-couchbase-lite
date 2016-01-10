@@ -19,9 +19,9 @@ var {
 var ReactCBLite = require('react-native').NativeModules.ReactCBLite;
 ReactCBLite.init(5984, 'admin', 'password');
 
-var { manager } = require('react-native-couchbase-lite');
-var lastChange = {};
 
+var lastChange = {};
+var manager = require('./common/dbManager');
 var ReactNativeCouchbaseLiteExample = React.createClass({
   render: function () {
     return (
@@ -40,6 +40,7 @@ var Home = React.createClass({
   },
 
   componentDidMount() { 
+  
     var self = this;
     var database = new manager();
     database.createLocalDatabase()
@@ -61,6 +62,7 @@ var Home = React.createClass({
         .then((res) => {
           console.log(res);
       });*/
+
 
       database.getChanges(true)
           .then((res)=>{

@@ -77,7 +77,7 @@ manager.prototype = {
    */
   deleteDocument: function(documentId, documentRevision) {
     return this.makeRequest("DELETE", this.db.localUrl + this.db.localName + "/" + documentId + "?rev=" + documentRevision);
-  },
+  }, 
 
   /*
    * Get a document from the database
